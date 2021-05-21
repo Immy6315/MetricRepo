@@ -23,7 +23,7 @@ export class MetricClass implements MetricCollectorInterface {
                let value = this.metricArray[metric].value.reverse().filter((element)=>{
                     let date:any = new Date()
                     let diffInMinutes = Math.round(((date-element.timeStamp % 86400000) % 3600000) / 60000)
-                    if(diffInMinutes<=1)
+                    if(diffInMinutes<=60)
                          return true
                }).reverse()
                this.metricArray[metric] = {
