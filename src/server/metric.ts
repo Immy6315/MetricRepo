@@ -3,7 +3,7 @@ import * as bodyParser from 'body-parser';
 
 import { MetricFactory } from '../factories/metricFactory';
 const metric = MetricFactory.create();
-
+ 
 let app = express();
  
 app.use(bodyParser.json());   
