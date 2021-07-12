@@ -6,18 +6,32 @@ const metric = MetricFactory.create();
 
 let app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
 
 app.post('/metric/:key', (req, res) => {
-    let key = req.params.key
-    let body = req.body
-    if(body.value){
-        let data = metric.set(key,{...body,timeStamp:new Date()})
-        return res.status(200).json({
-            statusCode: 200,
-            message: 'Value Added with respect to '+key,
-            data: data,
-          });
+    try{
+        let key = req.params.key
+        let body = req.body
+        if(body.value){
+            let data = metric.set(key,{...body,timeStamp:new Date()})
+            return res.status(200).json({
+                statusCode: 200,
+                message: 'Value Added with respect to '+key,
+                data: data,
+            });
+        }else{
+            return res.status(400).json({
+                statusCode: 400,
+                message: "Unsuccessfull",
+            });
+        }
+    }catch(err){
+        console.log(err)
+        return res.status(400).json({
+            statusCode: 400,
+            message: "Unsuccessfull",
+            err
+        });
     }
 });
 
@@ -31,7 +45,7 @@ app.get('/metric/:key/sum', (req, res) => {
       });
 });
 
-app.listen(8081,()=>{
+app.listen(80,()=>{
     console.log('Metric app has started!');
 });
 
