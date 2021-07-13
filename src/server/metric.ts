@@ -5,7 +5,7 @@ import { MetricFactory } from '../factories/metricFactory';
 const metric = MetricFactory.create();
  
 let app = express();
- 
+  
 app.use(bodyParser.json());   
 
 app.post('/metric/:key', (req, res) => {
